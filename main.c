@@ -14,59 +14,6 @@
 
 typedef enum GameScreen { TITLE = 0, GAME, END} GameScreen;
 
-//Color GetTileColor(int tileType) {
-//    switch (tileType) {
-//        case TILE_EMPTY: return SKYBLUE;
-//        case TILE_WALL: return DARKBROWN;
-//        case TILE_GOAL: return BLACK;
-//        case TILE_ENEMY: return BLACK;
-//        default: return GRAY;
-//    }
-//}
-//
-//int GetTileAt(int x, int y){
-//    int tileX = x / GRID_CELL_SIZE;
-//    int tileY = y / GRID_CELL_SIZE;
-//    if (tileX < 0 || tileX >= GRID_CELLS_X || tileY < 0 || tileY >= GRID_CELLS_Y)
-//	return TILE_WALL;
-//    	return tilemap[tileY][tileX];
-//}
-
-//bool IsCollidingWithEnemy(Rectangle player) {
-//    if (GetTileAt(player.x, player.y) == TILE_ENEMY) return true;
-//    if (GetTileAt(player.x + player.width, player.y) == TILE_ENEMY) return true; 
-//    if (GetTileAt(player.x, player.y + player.height -1 ) == TILE_ENEMY) return true; 
-//    if (GetTileAt(player.x + player.width, player.y + player.height -1) == TILE_ENEMY) return true;
-//    return false;
-//}
-//
-//bool IsCollidingWithWall(Rectangle player) {
-//    if (GetTileAt(player.x, player.y) == TILE_WALL) return true;
-//    if (GetTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-//    if (GetTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
-//    if (GetTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
-//    return false;
-//}
-//
-//bool IsCollidingWithCeling(Rectangle player){
-//    if (GetTileAt(player.x, player.y) == TILE_WALL) return true;
-//    if (GetTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-////	if (GetTileCeling(player.x,player.y) == TILE_WALL) return true;
-////	if (GetTileCeling(player.x + player.width,player.y) == TILE_WALL)  return true;
-////    	if (!IsCollidingWithWall(player)) return true; 
-//	return false;
-//}
-//
-//bool IsCollidingWithFloor(Rectangle player){
-//    //if (GetTileAt(player.x, player.y) == TILE_WALL) return true;
-//    //if (GetTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-//    if (GetTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
-//    if (GetTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
-////    	if (!IsCollidingWithWall(player)) return true; 
-//	return false;
-//}
-
-
 int main(void){
 	const int screenWidth = 600;
 	const int screenHeight = 600;
@@ -104,10 +51,6 @@ Texture GetTileTexture(int tileType) {
 	SetTargetFPS(120);
 	while (!WindowShouldClose()){
 
-		//if (((TILE_WALL.x + TILE_WALL.width) > player.x && (TILE_WALL.x + TILE_WALL.width) < (player.x + player.width + 20)) && 
-		//((ballposition.y + ballRadius) > player.y && (ballposition.y + ballRadius) < player.y + player.height)){ 
-		//ballspeed.y *= -1.0f;
-
 		//camera.zoom = expf(logf(camera.zoom) + ((float)GetMouseWheelMove()*0.1f));
 		switch(currentscreen){
 			case TITLE:
@@ -126,6 +69,7 @@ Texture GetTileTexture(int tileType) {
 			if(IsKeyDown(KEY_RIGHT))player.x += speed;
 			if(IsKeyDown(KEY_UP))player.y -= 6;
 			if(IsKeyDown(KEY_RIGHT_SHIFT))speed *= 2.5;
+
 
 			if (IsCollidingWithEnemy(player)) {
 				player.x = 50;
