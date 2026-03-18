@@ -19,11 +19,23 @@ Color GetTileColor(int tileType) {
 
 
 int GetTileAt(int x, int y){
+    int map;
     int tileX = x / GRID_CELL_SIZE;
     int tileY = y / GRID_CELL_SIZE;
     if (tileX < 0 || tileX >= GRID_CELLS_X || tileY < 0 || tileY >= GRID_CELLS_Y)
 	return TILE_WALL;
+	switch(map){
+		case 1:
     	return tilemap[tileY][tileX];
+		break;
+		case 2:
+    	return tilemap2[tileY][tileX];
+		case 3:
+    	return tilemap3[tileY][tileX];
+		break;
+		default:
+    	return tilemap[tileY][tileX];
+	}
 }
 
 bool IsCollidingWithEnemy(Rectangle player) {
@@ -45,18 +57,12 @@ bool IsCollidingWithWall(Rectangle player) {
 bool IsCollidingWithCeling(Rectangle player){
     if (GetTileAt(player.x, player.y) == TILE_WALL) return true;
     if (GetTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-//	if (GetTileCeling(player.x,player.y) == TILE_WALL) return true;
-//	if (GetTileCeling(player.x + player.width,player.y) == TILE_WALL)  return true;
-//    	if (!IsCollidingWithWall(player)) return true; 
 	return false;
 }
 
 bool IsCollidingWithFloor(Rectangle player){
-    //if (GetTileAt(player.x, player.y) == TILE_WALL) return true;
-    //if (GetTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
     if (GetTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
     if (GetTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
-//    	if (!IsCollidingWithWall(player)) return true; 
 	return false;
 }
 #endif 

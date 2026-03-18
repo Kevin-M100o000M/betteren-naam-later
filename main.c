@@ -1,6 +1,5 @@
 #include <raylib.h>
 #include "header.h"
-#include "map2.h"
 #include "collision.h"
 
 #define GRID_CELL_SIZE 20
@@ -33,6 +32,7 @@ int main(void){
 	float gravity = 0.2f;
 	float velocity = 0;
 	int speed = 1;
+	int map = 1;
 	bool onGround = false;
 	
 Texture GetTileTexture(int tileType) {
@@ -55,7 +55,12 @@ Texture GetTileTexture(int tileType) {
 		switch(currentscreen){
 			case TITLE:
 			{
+
 		if (IsKeyDown(KEY_ENTER)) currentscreen = GAME;
+		if(IsKeyDown(KEY_ONE)) map = 1; 
+		if(IsKeyDown(KEY_TWO)) map = 2; 
+		if(IsKeyDown(KEY_THREE)) map = 3;
+
 			}break;
 			case GAME:
 			{
@@ -69,6 +74,10 @@ Texture GetTileTexture(int tileType) {
 			if(IsKeyDown(KEY_RIGHT))player.x += speed;
 			if(IsKeyDown(KEY_UP))player.y -= 6;
 			if(IsKeyDown(KEY_RIGHT_SHIFT))speed *= 2.5;
+
+			if(IsKeyDown(KEY_ONE)) map = 1; 
+			if(IsKeyDown(KEY_TWO)) map = 2; 
+			if(IsKeyDown(KEY_THREE)) map = 3;
 
 
 			if (IsCollidingWithEnemy(player)) {
@@ -119,7 +128,10 @@ Texture GetTileTexture(int tileType) {
 			ClearBackground(RAYWHITE);
 		switch(currentscreen){
 			case TITLE:
-				 DrawText("press enter", screenWidth/2, screenHeight/2, 20, RED);
+				DrawText("press enter", screenWidth/2, screenHeight/2, 20, RED);
+				DrawText("press 1 for map 1 2 for map 2 and so forth", screenWidth/2, screenHeight/2 + 20, 20, RED);
+				DrawText("There are 3 maps", screenWidth/2, screenHeight/2 + 40, 20, RED);
+				DrawText(TextFormat("map %02i selected",map), 80, 70, 15, RED);
 			{
 			}break;
 			case GAME:
@@ -130,6 +142,18 @@ Texture GetTileTexture(int tileType) {
 			    for (int x = 0; x < GRID_CELLS_X; x++) {
 			 	for (int y = 0; y < GRID_CELLS_Y; y++) {
 			        int tileType = tilemap[y][x];
+				switch(map){
+					case 1:
+			        tileType = tilemap[y][x];
+					break;
+					case 2:
+			        tileType = tilemap2[y][x];
+					case 3:
+			        tileType = tilemap3[y][x];
+					break;
+					default:
+			        tileType = tilemap[y][x];
+				}
 			        Color c = GetTileColor(tileType);
 			        Texture t = GetTileTexture(tileType);
 			        DrawRectangle(
@@ -146,6 +170,7 @@ Texture GetTileTexture(int tileType) {
 			DrawRectangleRec(player, WHITE);
 			DrawTexture(playerTexture, player.x, player.y, WHITE);
 			DrawText(TextFormat("score %02i",speed), 80, 70, 15, DARKGREEN);
+			DrawText(TextFormat("map %02i",map), 80, 140, 15, RED);
 
 			}break;
 			case END:
