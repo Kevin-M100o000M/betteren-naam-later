@@ -25,12 +25,14 @@ int main(void){
 	Texture2D testTextureSpecial = LoadTexture("assets/special_test.png");
 	Texture2D testTextureDefault = LoadTexture("assets/default_test.png");
 	Texture2D testTextureEnemy = LoadTexture("assets/vijand_test.png");
+	Texture2D testTextureBounce = LoadTexture("assets/bounce_test.png");
 
 	Vector2 gridPosition = {0,0};
-	Rectangle player = {50, screenHeight - 41, 18, 20};
+	Rectangle player = {10, screenHeight - 41, 18, 20};
 	//Rectangle tile = {80, screenHeight/2, 20, 20};
 	float gravity = 0.2f;
 	float velocity = 0;
+	float v2 = 0;
 	int speed = 1;
 	bool onGround = false;
 	
@@ -39,71 +41,11 @@ Texture GetTileTexture(int tileType) {
         case TILE_EMPTY: return testTextureLucht;
         case TILE_WALL: return testTexture;
         case TILE_GOAL: return testTextureSpecial;
-        case TILE_ENEMY: return testTextureEnemy;
+	case TILE_ENEMY: return testTextureEnemy;
+        case TILE_BOUNCE: return testTextureBounce;
         default: return testTextureDefault;
     }
 }
-
-//Color GetTileColor(int tileType) {
-//    switch (tileType) {
-//        case TILE_EMPTY: return SKYBLUE;
-//        case TILE_WALL: return DARKBROWN;
-//        case TILE_GOAL: return BLACK;
-//        case TILE_ENEMY: return BLACK;
-//        default: return GRAY;
-//    }
-//}
-//
-//	int getTileAt(int x, int y){
-// 			   int map;
-// 			   int tileX = x / GRID_CELL_SIZE;
-// 			   int tileY = y / GRID_CELL_SIZE;
-// 			   if (tileX < 0 || tileX >= GRID_CELLS_X || tileY < 0 || tileY >= GRID_CELLS_Y)
-// 			       return TILE_WALL;
-// 			       switch(map){
-// 			       	case 1:
-// 			   	return tilemap[tileY][tileX];
-// 			       	break;
-// 			       	case 2:
-// 			   	return tilemap2[tileY][tileX];
-// 			       	case 3:
-// 			   	return tilemap3[tileY][tileX];
-// 			       	break;
-// 			       	default:
-// 			   	return tilemap[tileY][tileX];
-// 			       }
-//
-//}			
-//
-//bool isCollidingWithEnemy(Rectangle player) {
-//    if (getTileAt(player.x, player.y) == TILE_ENEMY) return true;
-//    if (getTileAt(player.x + player.width, player.y) == TILE_ENEMY) return true; 
-//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_ENEMY) return true; 
-//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_ENEMY) return true;
-//    return false;
-//}
-//
-//bool isCollidingWithWall(Rectangle player) {
-//    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
-//    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
-//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
-//    return false;
-//}
-//
-//bool isCollidingWithCeling(Rectangle player){
-//    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
-//    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-//	return false;
-//}
-//
-//bool isCollidingWithFloor(Rectangle player){
-//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
-//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
-//	return false;
-//}
-
-
 
     	//Camera2D camera = { 0 };
     	//camera.zoom = 1.0f;
@@ -126,74 +68,43 @@ Texture GetTileTexture(int tileType) {
 			{
 			velocity += gravity;
 			player.y += velocity;
+			player.x += v2;
 			speed = 1;
 
 			if(IsKeyDown(KEY_G))player.x = 10,player.y = 10;
+			if(IsKeyDown(KEY_F))player.x = 450,player.y = 60;
 			if(IsKeyDown(KEY_LEFT_SHIFT))speed = 2;
 			if(IsKeyDown(KEY_LEFT))player.x -= speed;
 			if(IsKeyDown(KEY_RIGHT))player.x += speed;
 			if(IsKeyDown(KEY_UP))player.y -= 6;
-			if(IsKeyDown(KEY_RIGHT_SHIFT))speed *= 2.5;
 
 			if(IsKeyDown(KEY_ONE)) map = 1; 
 			if(IsKeyDown(KEY_TWO)) map = 2; 
 			if(IsKeyDown(KEY_THREE)) map = 3;
 
-			int getTileAt(int x, int y){
- 			   int tileX = x / GRID_CELL_SIZE;
- 			   int tileY = y / GRID_CELL_SIZE;
- 			   if (tileX < 0 || tileX >= GRID_CELLS_X || tileY < 0 || tileY >= GRID_CELLS_Y)
- 			       return TILE_WALL;
- 			       switch(map){
- 			       	case 1:
- 			   	return tilemap[tileY][tileX];
- 			       	break;
- 			       	case 2:
- 			   	return tilemap2[tileY][tileX];
- 			       	case 3:
- 			   	return tilemap3[tileY][tileX];
- 			       	break;
- 			       	default:
- 			   	return tilemap[tileY][tileX];
-				break;
- 			       }
-
-			}		
-//bool isCollidingWithEnemy(Rectangle player) {
-//    if (getTileAt(player.x, player.y) == TILE_ENEMY) return true;
-//    if (getTileAt(player.x + player.width, player.y) == TILE_ENEMY) return true; 
-//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_ENEMY) return true; 
-//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_ENEMY) return true;
-//    return false;
-//}
-//
-//bool isCollidingWithWall(Rectangle player) {
-//    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
-//    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
-//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
-//    return false;
-//}
-//
-//bool isCollidingWithCeling(Rectangle player){
-//    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
-//    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-//	return false;
-//}
-//
-//bool isCollidingWithFloor(Rectangle player){
-//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
-//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
-//	return false;
-//}
 
 
-
-		
 			if (isCollidingWithEnemy(player)) {
-				player.x = 50;
+				player.x = 10;
+				player.y = screenHeight - 41;
+				map = 1;
+			}
+
+			if(isCollidingWithSpecial(player)){
+   		         	velocity -= 5;
+				player.y -= 4;
+   		         	onGround = false;
+				map += 1;
+				player.x = 10;
 				player.y = screenHeight - 41;
 			}
+
+			if(isCollidingWithBounce(player)){
+   		         	velocity = -3.5f;
+				player.y -= 3;
+   		         	onGround = false;
+			}
+
 
 			if (isCollidingWithWall(player)) {
 			if (velocity > 0){
@@ -207,25 +118,39 @@ Texture GetTileTexture(int tileType) {
         		    onGround = false;
         		}	
 
+			if(isCollidingWithLeft(player)){
+   		        	player.x -= 4;
+   		         if (IsKeyDown(KEY_LEFT_SHIFT)) player.x -= 4;
+			 if(IsKeyDown(KEY_UP))velocity += 10;
+			}
+
+			if(isCollidingWithRight(player)){
+   		        	player.x += 4;
+   		         if (IsKeyDown(KEY_LEFT_SHIFT)) player.x += 4;
+			 if(IsKeyDown(KEY_UP))velocity += 10;
+			}
+
 			if(isCollidingWithCeling(player)){
 				player.y += 20;
         	    		//velocity += 10.0f;
-        	    		velocity += 4.0f;
+        	    		velocity = 4.0f;
 			}
 			if(isCollidingWithFloor(player)){
 				player.y -= 2;
         	    		//velocity += 10.0f;
-        	    		velocity += 4.0f;
+        	    		velocity = 4.0f;
 			}
 
    			if (onGround && IsKeyPressed(KEY_SPACE)) {
-   		         velocity = +10;
+   		         velocity = 10;
    		         onGround = false;
    		     }
 
    		     if (isCollidingWithWall(player)) {
-   		         if (IsKeyDown(KEY_LEFT)) player.x += 2;
-   		         if (IsKeyDown(KEY_RIGHT)) player.x -= 2;
+   		         //if (IsKeyDown(KEY_LEFT)) player.x += 2;
+   		         //if (IsKeyDown(KEY_RIGHT)) player.x -= 2;
+   		         //if (IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT)) player.x += 4;
+   		         //if (IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT)) player.x -= 4;
    		     }
 				}break;
 				case END:
@@ -258,6 +183,7 @@ Texture GetTileTexture(int tileType) {
 					break;
 					case 2:
 			        tileType = tilemap2[y][x];
+					break;
 					case 3:
 			        tileType = tilemap3[y][x];
 					break;

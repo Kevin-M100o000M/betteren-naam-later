@@ -4,14 +4,15 @@
 
 #define TILE_EMPTY 0
 #define TILE_WALL 1
-#define TILE_GOAL 2
+#define TILE_SPECIAL 2
 #define TILE_ENEMY 3
+#define TILE_BOUNCE 4
 
 Color GetTileColor(int tileType) {
     switch (tileType) {
         case TILE_EMPTY: return SKYBLUE;
         case TILE_WALL: return DARKBROWN;
-        case TILE_GOAL: return BLACK;
+        case TILE_SPECIAL: return BLACK;
         case TILE_ENEMY: return BLACK;
         default: return GRAY;
     }
@@ -53,9 +54,38 @@ bool isCollidingWithWall(Rectangle player) {
     return false;
 }
 
+bool isCollidingWithSpecial(Rectangle player) {
+    if (getTileAt(player.x, player.y) == TILE_SPECIAL) return true;
+    if (getTileAt(player.x + player.width, player.y) == TILE_SPECIAL) return true; 
+    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_SPECIAL) return true; 
+    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_SPECIAL) return true;
+    return false;
+}
+
+bool isCollidingWithBounce(Rectangle player) {
+    if (getTileAt(player.x, player.y) == TILE_BOUNCE) return true;
+    if (getTileAt(player.x + player.width, player.y) == TILE_BOUNCE) return true; 
+    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_BOUNCE) return true; 
+    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_BOUNCE) return true;
+    return false;
+}
+
 bool isCollidingWithCeling(Rectangle player){
     if (getTileAt(player.x, player.y) == TILE_WALL) return true;
     if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
+	return false;
+}
+
+
+bool isCollidingWithLeft(Rectangle player){
+    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
+    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
+	return false;
+}
+
+bool isCollidingWithRight(Rectangle player){
+    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
+    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
 	return false;
 }
 
