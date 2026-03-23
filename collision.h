@@ -18,8 +18,7 @@ Color GetTileColor(int tileType) {
 }
 
 
-int GetTileAt(int x, int y){
-    int map;
+int getTileAt(int x, int y){
     int tileX = x / GRID_CELL_SIZE;
     int tileY = y / GRID_CELL_SIZE;
     if (tileX < 0 || tileX >= GRID_CELLS_X || tileY < 0 || tileY >= GRID_CELLS_Y)
@@ -38,31 +37,31 @@ int GetTileAt(int x, int y){
 	}
 }
 
-bool IsCollidingWithEnemy(Rectangle player) {
-    if (GetTileAt(player.x, player.y) == TILE_ENEMY) return true;
-    if (GetTileAt(player.x + player.width, player.y) == TILE_ENEMY) return true; 
-    if (GetTileAt(player.x, player.y + player.height -1 ) == TILE_ENEMY) return true; 
-    if (GetTileAt(player.x + player.width, player.y + player.height -1) == TILE_ENEMY) return true;
+bool isCollidingWithEnemy(Rectangle player) {
+    if (getTileAt(player.x, player.y) == TILE_ENEMY) return true;
+    if (getTileAt(player.x + player.width, player.y) == TILE_ENEMY) return true; 
+    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_ENEMY) return true; 
+    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_ENEMY) return true;
     return false;
 }
 
-bool IsCollidingWithWall(Rectangle player) {
-    if (GetTileAt(player.x, player.y) == TILE_WALL) return true;
-    if (GetTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
-    if (GetTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
-    if (GetTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
+bool isCollidingWithWall(Rectangle player) {
+    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
+    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
+    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
+    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
     return false;
 }
 
-bool IsCollidingWithCeling(Rectangle player){
-    if (GetTileAt(player.x, player.y) == TILE_WALL) return true;
-    if (GetTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
+bool isCollidingWithCeling(Rectangle player){
+    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
+    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
 	return false;
 }
 
-bool IsCollidingWithFloor(Rectangle player){
-    if (GetTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
-    if (GetTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
+bool isCollidingWithFloor(Rectangle player){
+    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
+    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
 	return false;
 }
 #endif 

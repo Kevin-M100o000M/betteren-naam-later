@@ -1,6 +1,6 @@
 #include <raylib.h>
+int map = 1;
 #include "header.h"
-#include "collision.h"
 
 #define GRID_CELL_SIZE 20
 #define GRID_CELLS_X 30 
@@ -32,7 +32,6 @@ int main(void){
 	float gravity = 0.2f;
 	float velocity = 0;
 	int speed = 1;
-	int map = 1;
 	bool onGround = false;
 	
 Texture GetTileTexture(int tileType) {
@@ -44,6 +43,67 @@ Texture GetTileTexture(int tileType) {
         default: return testTextureDefault;
     }
 }
+
+//Color GetTileColor(int tileType) {
+//    switch (tileType) {
+//        case TILE_EMPTY: return SKYBLUE;
+//        case TILE_WALL: return DARKBROWN;
+//        case TILE_GOAL: return BLACK;
+//        case TILE_ENEMY: return BLACK;
+//        default: return GRAY;
+//    }
+//}
+//
+//	int getTileAt(int x, int y){
+// 			   int map;
+// 			   int tileX = x / GRID_CELL_SIZE;
+// 			   int tileY = y / GRID_CELL_SIZE;
+// 			   if (tileX < 0 || tileX >= GRID_CELLS_X || tileY < 0 || tileY >= GRID_CELLS_Y)
+// 			       return TILE_WALL;
+// 			       switch(map){
+// 			       	case 1:
+// 			   	return tilemap[tileY][tileX];
+// 			       	break;
+// 			       	case 2:
+// 			   	return tilemap2[tileY][tileX];
+// 			       	case 3:
+// 			   	return tilemap3[tileY][tileX];
+// 			       	break;
+// 			       	default:
+// 			   	return tilemap[tileY][tileX];
+// 			       }
+//
+//}			
+//
+//bool isCollidingWithEnemy(Rectangle player) {
+//    if (getTileAt(player.x, player.y) == TILE_ENEMY) return true;
+//    if (getTileAt(player.x + player.width, player.y) == TILE_ENEMY) return true; 
+//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_ENEMY) return true; 
+//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_ENEMY) return true;
+//    return false;
+//}
+//
+//bool isCollidingWithWall(Rectangle player) {
+//    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
+//    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
+//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
+//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
+//    return false;
+//}
+//
+//bool isCollidingWithCeling(Rectangle player){
+//    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
+//    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
+//	return false;
+//}
+//
+//bool isCollidingWithFloor(Rectangle player){
+//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
+//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
+//	return false;
+//}
+
+
 
     	//Camera2D camera = { 0 };
     	//camera.zoom = 1.0f;
@@ -79,13 +139,63 @@ Texture GetTileTexture(int tileType) {
 			if(IsKeyDown(KEY_TWO)) map = 2; 
 			if(IsKeyDown(KEY_THREE)) map = 3;
 
+			int getTileAt(int x, int y){
+ 			   int tileX = x / GRID_CELL_SIZE;
+ 			   int tileY = y / GRID_CELL_SIZE;
+ 			   if (tileX < 0 || tileX >= GRID_CELLS_X || tileY < 0 || tileY >= GRID_CELLS_Y)
+ 			       return TILE_WALL;
+ 			       switch(map){
+ 			       	case 1:
+ 			   	return tilemap[tileY][tileX];
+ 			       	break;
+ 			       	case 2:
+ 			   	return tilemap2[tileY][tileX];
+ 			       	case 3:
+ 			   	return tilemap3[tileY][tileX];
+ 			       	break;
+ 			       	default:
+ 			   	return tilemap[tileY][tileX];
+				break;
+ 			       }
 
-			if (IsCollidingWithEnemy(player)) {
+			}		
+//bool isCollidingWithEnemy(Rectangle player) {
+//    if (getTileAt(player.x, player.y) == TILE_ENEMY) return true;
+//    if (getTileAt(player.x + player.width, player.y) == TILE_ENEMY) return true; 
+//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_ENEMY) return true; 
+//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_ENEMY) return true;
+//    return false;
+//}
+//
+//bool isCollidingWithWall(Rectangle player) {
+//    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
+//    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
+//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
+//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
+//    return false;
+//}
+//
+//bool isCollidingWithCeling(Rectangle player){
+//    if (getTileAt(player.x, player.y) == TILE_WALL) return true;
+//    if (getTileAt(player.x + player.width, player.y) == TILE_WALL) return true; 
+//	return false;
+//}
+//
+//bool isCollidingWithFloor(Rectangle player){
+//    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_WALL) return true; 
+//    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_WALL) return true;
+//	return false;
+//}
+
+
+
+		
+			if (isCollidingWithEnemy(player)) {
 				player.x = 50;
 				player.y = screenHeight - 41;
 			}
 
-			if (IsCollidingWithWall(player)) {
+			if (isCollidingWithWall(player)) {
 			if (velocity > 0){
         	    	player.y -= velocity;
         	    	onGround = true;
@@ -97,12 +207,12 @@ Texture GetTileTexture(int tileType) {
         		    onGround = false;
         		}	
 
-			if(IsCollidingWithCeling(player)){
+			if(isCollidingWithCeling(player)){
 				player.y += 20;
         	    		//velocity += 10.0f;
         	    		velocity += 4.0f;
 			}
-			if(IsCollidingWithFloor(player)){
+			if(isCollidingWithFloor(player)){
 				player.y -= 2;
         	    		//velocity += 10.0f;
         	    		velocity += 4.0f;
@@ -113,7 +223,7 @@ Texture GetTileTexture(int tileType) {
    		         onGround = false;
    		     }
 
-   		     if (IsCollidingWithWall(player)) {
+   		     if (isCollidingWithWall(player)) {
    		         if (IsKeyDown(KEY_LEFT)) player.x += 2;
    		         if (IsKeyDown(KEY_RIGHT)) player.x -= 2;
    		     }
@@ -166,6 +276,9 @@ Texture GetTileTexture(int tileType) {
 				DrawTexture(t,(int)gridPosition.x + x * GRID_CELL_SIZE,(int)gridPosition.y + y * GRID_CELL_SIZE, WHITE);
 			    }
 			}
+
+			
+			//getTileAt();
 
 			DrawRectangleRec(player, WHITE);
 			DrawTexture(playerTexture, player.x, player.y, WHITE);
