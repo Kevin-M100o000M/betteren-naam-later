@@ -19,13 +19,13 @@ int main(void){
 	InitWindow(screenWidth , screenHeight, "tilemap");  
 	GameScreen currentscreen = TITLE;
 
-	Texture2D playerTexture = LoadTexture("assets/player_test.png");
-	Texture2D testTexture = LoadTexture("assets/test_sprite.png");
-	Texture2D testTextureLucht = LoadTexture("assets/lucht_test.png");
-	Texture2D testTextureSpecial = LoadTexture("assets/special_test.png");
-	Texture2D testTextureDefault = LoadTexture("assets/default_test.png");
-	Texture2D testTextureEnemy = LoadTexture("assets/vijand_test.png");
-	Texture2D testTextureBounce = LoadTexture("assets/bounce_test.png");
+	 playerTexture = LoadTexture("assets/player_test.png");
+	 testTexture = LoadTexture("assets/test_sprite.png");
+	 testTextureLucht = LoadTexture("assets/lucht_test.png");
+	 testTextureSpecial = LoadTexture("assets/special_test.png");
+	 testTextureDefault = LoadTexture("assets/default_test.png");
+	 testTextureEnemy = LoadTexture("assets/vijand_test.png");
+	 testTextureBounce = LoadTexture("assets/bounce_test.png");
 
 	Vector2 gridPosition = {0,0};
 	Rectangle player = {10, screenHeight - 41, 18, 20};
@@ -35,17 +35,6 @@ int main(void){
 	float v2 = 0;
 	int speed = 1;
 	bool onGround = false;
-	
-Texture GetTileTexture(int tileType) {
-    switch (tileType) {
-        case TILE_EMPTY: return testTextureLucht;
-        case TILE_WALL: return testTexture;
-        case TILE_GOAL: return testTextureSpecial;
-	case TILE_ENEMY: return testTextureEnemy;
-        case TILE_BOUNCE: return testTextureBounce;
-        default: return testTextureDefault;
-    }
-}
 
     	//Camera2D camera = { 0 };
     	//camera.zoom = 1.0f;
@@ -152,6 +141,7 @@ Texture GetTileTexture(int tileType) {
    		         //if (IsKeyDown(KEY_LEFT) && IsKeyDown(KEY_LEFT_SHIFT)) player.x += 4;
    		         //if (IsKeyDown(KEY_RIGHT) && IsKeyDown(KEY_LEFT_SHIFT)) player.x -= 4;
    		     }
+
 				}break;
 				case END:
 				{
@@ -176,22 +166,22 @@ Texture GetTileTexture(int tileType) {
 
 			    for (int x = 0; x < GRID_CELLS_X; x++) {
 			 	for (int y = 0; y < GRID_CELLS_Y; y++) {
-			        int tileType = tilemap[y][x];
+			        int ttileType = tilemap[y][x];
 				switch(map){
 					case 1:
-			        tileType = tilemap[y][x];
+			        ttileType = tilemap[y][x];
 					break;
 					case 2:
-			        tileType = tilemap2[y][x];
+			        ttileType = tilemap2[y][x];
 					break;
 					case 3:
-			        tileType = tilemap3[y][x];
+			        ttileType = tilemap3[y][x];
 					break;
 					default:
-			        tileType = tilemap[y][x];
+			        ttileType = tilemap[y][x];
 				}
-			        Color c = GetTileColor(tileType);
-			        Texture t = GetTileTexture(tileType);
+			        Color c = getTileColor(ttileType);
+			        Texture t = getTileTexture(ttileType);
 			        DrawRectangle(
 			            (int)gridPosition.x + x * GRID_CELL_SIZE,
 			            (int)gridPosition.y + y * GRID_CELL_SIZE,
@@ -205,7 +195,7 @@ Texture GetTileTexture(int tileType) {
 
 			
 			//getTileAt();
-
+			
 			DrawRectangleRec(player, WHITE);
 			DrawTexture(playerTexture, player.x, player.y, WHITE);
 			DrawText(TextFormat("score %02i",speed), 80, 70, 15, DARKGREEN);

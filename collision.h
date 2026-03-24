@@ -8,13 +8,34 @@
 #define TILE_ENEMY 3
 #define TILE_BOUNCE 4
 
-Color GetTileColor(int tileType) {
+
+Texture2D playerTexture; 
+Texture2D testTexture; 
+Texture2D testTextureLucht;
+Texture2D testTextureSpecial;
+Texture2D testTextureDefault;
+Texture2D testTextureEnemy;
+Texture2D testTextureBounce;
+
+
+Color getTileColor(int tileType) {
     switch (tileType) {
         case TILE_EMPTY: return SKYBLUE;
         case TILE_WALL: return DARKBROWN;
         case TILE_SPECIAL: return BLACK;
         case TILE_ENEMY: return BLACK;
         default: return GRAY;
+    }
+}
+
+Texture getTileTexture(const int tileType) {
+    switch (tileType) {
+        case TILE_EMPTY: return testTextureLucht;
+        case TILE_WALL: return testTexture;
+        case TILE_SPECIAL: return testTextureSpecial;
+	case TILE_ENEMY: return testTextureEnemy;
+        case TILE_BOUNCE: return testTextureBounce;
+        default: return testTextureDefault;
     }
 }
 
