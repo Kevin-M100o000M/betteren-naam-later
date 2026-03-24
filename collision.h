@@ -39,10 +39,10 @@ int getTileAt(int x, int y){
 }
 
 bool isCollidingWithEnemy(Rectangle player) {
-    if (getTileAt(player.x, player.y) == TILE_ENEMY) return true;
-    if (getTileAt(player.x + player.width, player.y) == TILE_ENEMY) return true; 
-    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_ENEMY) return true; 
-    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_ENEMY) return true;
+    if (getTileAt(player.x +2, player.y) == TILE_ENEMY) return true;
+    if (getTileAt(player.x + player.width -2, player.y) == TILE_ENEMY) return true; 
+    if (getTileAt(player.x +2, player.y + player.height -2 ) == TILE_ENEMY) return true; 
+    if (getTileAt(player.x + player.width -2, player.y + player.height -2) == TILE_ENEMY) return true;
     return false;
 }
 

@@ -2,3 +2,7 @@ make good physics/controls
 make level loader
 make make file
 make level editior 
+
+x86_64-w64-mingw32-gcc main.c -o game.exe   -I$HOME/raylib/src   -L$HOME/raylib/src   -lraylib -lopengl32 -lgdi32 -lwinmm
+gcc main.c -o game -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+

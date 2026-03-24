@@ -87,7 +87,7 @@ Texture GetTileTexture(int tileType) {
 			if (isCollidingWithEnemy(player)) {
 				player.x = 10;
 				player.y = screenHeight - 41;
-				map = 1;
+				//map = 1;
 			}
 
 			if(isCollidingWithSpecial(player)){
@@ -210,6 +210,7 @@ Texture GetTileTexture(int tileType) {
 			DrawTexture(playerTexture, player.x, player.y, WHITE);
 			DrawText(TextFormat("score %02i",speed), 80, 70, 15, DARKGREEN);
 			DrawText(TextFormat("map %02i",map), 80, 140, 15, RED);
+			DrawFPS( 45, 25);
 
 			}break;
 			case END:

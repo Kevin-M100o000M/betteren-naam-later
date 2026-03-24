@@ -3,9 +3,9 @@
 #include <raylib.h>
 #include <stdio.h>
 #include "header.h"
-#include "map1.h"
-#include "map2.h"
-#include "map3.h"
+#include "maps/map1.h"
+#include "maps/map2.h"
+#include "maps/map3.h"
 #include "collision.h"
 
 #define GRID_CELL_SIZE 20
