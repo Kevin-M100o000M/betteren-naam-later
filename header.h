@@ -6,6 +6,8 @@
 #include "maps/map1.h"
 #include "maps/map2.h"
 #include "maps/map3.h"
+#include "maps/map4.h"
+#include "maps/map5.h"
 #include "collision.h"
 
 #define GRID_CELL_SIZE 20

@@ -20,7 +20,7 @@ int main(void){
 	GameScreen currentscreen = TITLE;
 
 	 playerTexture = LoadTexture("assets/player_test.png");
-	 testTexture = LoadTexture("assets/test_sprite.png");
+	 testTexture = LoadTexture("assets/brick.png");
 	 testTextureLucht = LoadTexture("assets/lucht_test.png");
 	 testTextureSpecial = LoadTexture("assets/special_test.png");
 	 testTextureDefault = LoadTexture("assets/default_test.png");
@@ -51,6 +51,8 @@ int main(void){
 		if(IsKeyDown(KEY_ONE)) map = 1; 
 		if(IsKeyDown(KEY_TWO)) map = 2; 
 		if(IsKeyDown(KEY_THREE)) map = 3;
+		if(IsKeyDown(KEY_FOUR)) map = 4;
+		if(IsKeyDown(KEY_FIVE)) map = 5;
 
 			}break;
 			case GAME:
@@ -70,7 +72,8 @@ int main(void){
 			if(IsKeyDown(KEY_ONE)) map = 1; 
 			if(IsKeyDown(KEY_TWO)) map = 2; 
 			if(IsKeyDown(KEY_THREE)) map = 3;
-
+			if(IsKeyDown(KEY_FOUR)) map = 4;
+			if(IsKeyDown(KEY_FIVE)) map = 5;
 
 
 			if (isCollidingWithEnemy(player)) {
@@ -176,6 +179,12 @@ int main(void){
 					break;
 					case 3:
 			        ttileType = tilemap3[y][x];
+					break;
+					case 4:
+			        ttileType = tilemap4[y][x];
+					break;
+					case 5:
+			        ttileType = tilemap5[y][x];
 					break;
 					default:
 			        ttileType = tilemap[y][x];

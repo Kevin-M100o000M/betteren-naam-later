@@ -54,6 +54,12 @@ int getTileAt(int x, int y){
 		case 3:
     	return tilemap3[tileY][tileX];
 		break;
+		case 4:
+    	return tilemap4[tileY][tileX];
+		break;
+		case 5:
+    	return tilemap5[tileY][tileX];
+		break;
 		default:
     	return tilemap[tileY][tileX];
 	}
