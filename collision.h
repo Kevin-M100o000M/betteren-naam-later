@@ -7,6 +7,7 @@
 #define TILE_SPECIAL 2
 #define TILE_ENEMY 3
 #define TILE_BOUNCE 4
+#define TILE_END 5
 
 
 Texture2D playerTexture; 
@@ -16,6 +17,7 @@ Texture2D testTextureSpecial;
 Texture2D testTextureDefault;
 Texture2D testTextureEnemy;
 Texture2D testTextureBounce;
+Texture2D testTextureEnd;
 
 
 Color getTileColor(int tileType) {
@@ -35,6 +37,7 @@ Texture getTileTexture(const int tileType) {
         case TILE_SPECIAL: return testTextureSpecial;
 	case TILE_ENEMY: return testTextureEnemy;
         case TILE_BOUNCE: return testTextureBounce;
+        case TILE_END: return testTextureEnd;
         default: return testTextureDefault;
     }
 }
@@ -82,10 +85,10 @@ bool isCollidingWithWall(Rectangle player) {
 }
 
 bool isCollidingWithSpecial(Rectangle player) {
-    if (getTileAt(player.x, player.y) == TILE_SPECIAL) return true;
-    if (getTileAt(player.x + player.width, player.y) == TILE_SPECIAL) return true; 
-    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_SPECIAL) return true; 
-    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_SPECIAL) return true;
+    if (getTileAt(player.x, player.y) == TILE_END) return true;
+    if (getTileAt(player.x + player.width, player.y) == TILE_END) return true; 
+    if (getTileAt(player.x, player.y + player.height -1 ) == TILE_END) return true; 
+    if (getTileAt(player.x + player.width, player.y + player.height -1) == TILE_END) return true;
     return false;
 }
 

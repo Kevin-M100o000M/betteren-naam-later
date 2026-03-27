@@ -26,6 +26,7 @@ int main(void){
 	 testTextureDefault = LoadTexture("assets/default_test.png");
 	 testTextureEnemy = LoadTexture("assets/vijand_test.png");
 	 testTextureBounce = LoadTexture("assets/bounce_test.png");
+	 testTextureEnd = LoadTexture("assets/end_test.png");
 
 	Vector2 gridPosition = {0,0};
 	Rectangle player = {10, screenHeight - 41, 18, 20};
@@ -34,6 +35,9 @@ int main(void){
 	float velocity = 0;
 	float v2 = 0;
 	int speed = 1;
+	bool playerUp = false;
+	bool playerLeft = false;
+	bool playerRight = false;
 	bool onGround = false;
 
     	//Camera2D camera = { 0 };
@@ -61,13 +65,21 @@ int main(void){
 			player.y += velocity;
 			player.x += v2;
 			speed = 1;
+			playerUp = false;
+			playerLeft = false;
+			playerRight = false;
 
-			if(IsKeyDown(KEY_G))player.x = 10,player.y = 10;
-			if(IsKeyDown(KEY_F))player.x = 450,player.y = 60;
+			//if(IsKeyDown(KEY_G))player.x = 10,player.y = 10;
+			//if(IsKeyDown(KEY_F))player.x = 450,player.y = 60;
+
 			if(IsKeyDown(KEY_LEFT_SHIFT))speed = 2;
-			if(IsKeyDown(KEY_LEFT))player.x -= speed;
-			if(IsKeyDown(KEY_RIGHT))player.x += speed;
-			if(IsKeyDown(KEY_UP))player.y -= 6;
+			if(IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A))playerLeft = true;
+			if(IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D))playerRight = true;
+
+			if(IsKeyDown(KEY_UP) || IsKeyDown(KEY_SPACE)|| IsKeyDown(KEY_W))playerUp = true;
+			if(playerUp)player.y -= 6;
+			if(playerLeft)player.x -= speed;
+			if(playerRight)player.x += speed;
 
 			if(IsKeyDown(KEY_ONE)) map = 1; 
 			if(IsKeyDown(KEY_TWO)) map = 2; 
@@ -87,8 +99,9 @@ int main(void){
 				player.y -= 4;
    		         	onGround = false;
 				map += 1;
-				player.x = 10;
+				player.x = 14;
 				player.y = screenHeight - 41;
+				if(map == 5) player.x = 300;
 			}
 
 			if(isCollidingWithBounce(player)){
@@ -113,13 +126,13 @@ int main(void){
 			if(isCollidingWithLeft(player)){
    		        	player.x -= 4;
    		         if (IsKeyDown(KEY_LEFT_SHIFT)) player.x -= 4;
-			 if(IsKeyDown(KEY_UP))velocity += 10;
+			 if(playerUp)velocity += 10;
 			}
 
 			if(isCollidingWithRight(player)){
    		        	player.x += 4;
    		         if (IsKeyDown(KEY_LEFT_SHIFT)) player.x += 4;
-			 if(IsKeyDown(KEY_UP))velocity += 10;
+			 if(playerUp)velocity += 10;
 			}
 
 			if(isCollidingWithCeling(player)){
@@ -156,9 +169,9 @@ int main(void){
 			ClearBackground(RAYWHITE);
 		switch(currentscreen){
 			case TITLE:
-				DrawText("press enter", screenWidth/2, screenHeight/2, 20, RED);
-				DrawText("press 1 for map 1 2 for map 2 and so forth", screenWidth/2, screenHeight/2 + 20, 20, RED);
-				DrawText("There are 3 maps", screenWidth/2, screenHeight/2 + 40, 20, RED);
+				DrawText("press enter", 100, 300, 20, RED);
+				DrawText("press 1 for map 1 2 for map 2 and so forth", 100, screenHeight/2 + 20, 20, RED);
+				DrawText("There are 5 maps", 100, screenHeight/2 + 40, 20, RED);
 				DrawText(TextFormat("map %02i selected",map), 80, 70, 15, RED);
 			{
 			}break;
@@ -207,9 +220,10 @@ int main(void){
 			
 			DrawRectangleRec(player, WHITE);
 			DrawTexture(playerTexture, player.x, player.y, WHITE);
-			DrawText(TextFormat("score %02i",speed), 80, 70, 15, DARKGREEN);
-			DrawText(TextFormat("map %02i",map), 80, 140, 15, RED);
-			DrawFPS( 45, 25);
+			//DrawText(TextFormat("score %02i",speed), 80, 70, 15, DARKGREEN);
+			DrawText(TextFormat("map %02i",map), 130, 12, 20, RED);
+			if (map == 5) DrawText(TextFormat("Press esc to END",map), 50, 450, 50, ORANGE);
+			DrawFPS( 45, 15);
 
 			}break;
 			case END:
